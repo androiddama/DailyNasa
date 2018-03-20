@@ -15,15 +15,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
     public Button btn;
-    /*Spinners
-    Spinner Meses;
-    Spinner Dias;
-    Spinner Años;
-    */
+
     //segunta version de la fecha
     private static final String TAG = "MainActivity";
     private TextView mDisplayDate;
@@ -36,37 +33,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         addButtonListener();
 
-        /*spinners
-        Meses = (Spinner) findViewById(R.id.sp1);
-        Dias = (Spinner) findViewById(R.id.sp2);
-        Años = (Spinner) findViewById(R.id.sp3);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Meses, android.R.layout.simple_spinner_item);
-        Meses.setAdapter(adapter);
-
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.Dias, android.R.layout.simple_spinner_item);
-        Dias.setAdapter(adapter2);
-
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.Años, android.R.layout.simple_spinner_item);
-        Años.setAdapter(adapter3);
-        */
 
         //segunda version fecha
         mDisplayDate = (TextView) findViewById(R.id.date);
 
+        //función para mostrar el DatePickDialog si se presiona el botón: 'Fecha'.
+        //(o bien si se presiona una fecha ya escogida y que se muestra en lugar del botón 'Fecha').
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Calendar cal = Calendar.getInstance();
+
+                //hace un get para el año, mes y dia actuales.
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
+                //muestra el DatePickerDialog
                 DatePickerDialog dialog = new DatePickerDialog(
                         MainActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateSetListener,
                         year, month, day);
+
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
@@ -74,13 +64,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Botón 'ok': Para mostrar la fecha escogida.
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month +1;
+
+                Calendar cal2 = Calendar.getInstance(); //crear otro calendario para mirar la fecha actual
+
+                //mirar si los años son válidos.
+                if(year < 1995) year = 1995;
+                else if(year > cal2.get(Calendar.YEAR)) year = cal2.get(Calendar.YEAR);
+
                 Log.d(TAG, "onDateSet: mm/dd/yyyy: " + month + "/" + dayOfMonth + "/" + year);
 
                 String dates = year + "-" + month + "-" + dayOfMonth;
+
                 mDisplayDate.setText(dates);
 
             }
@@ -99,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
 
                 String dato = mDisplayDate.getText().toString();
 
+                //Intent para pasar la fecha a la activity que muestra la imagen de la NASA.
+                /*(Coje el dato del DatePickerDialog y lo envia a la nueva activity cuando se
+                presiona el boton VEURE IMATGE*/
                 Intent i = new Intent("com.example.soul.dailynasa.PhotoNasa");
                 i.putExtra("FECHA", dato);
                 startActivity(i);
