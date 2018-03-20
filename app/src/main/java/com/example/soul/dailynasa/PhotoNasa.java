@@ -41,7 +41,7 @@ public class PhotoNasa extends AppCompatActivity {
 
         }
 
-        //final del intento de scar la fecha seleccionada
+        //final del intento de sacar la fecha seleccionada
 
         im = (ImageView) findViewById(R.id.nasa_image);
 

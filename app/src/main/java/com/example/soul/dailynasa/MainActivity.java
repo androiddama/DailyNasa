@@ -19,12 +19,6 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
 
     public Button btn;
-    /*Spinners
-    Spinner Meses;
-    Spinner Dias;
-    Spinner Años;
-    */
-    //segunta version de la fecha
     private static final String TAG = "MainActivity";
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -36,22 +30,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         addButtonListener();
 
-        /*spinners
-        Meses = (Spinner) findViewById(R.id.sp1);
-        Dias = (Spinner) findViewById(R.id.sp2);
-        Años = (Spinner) findViewById(R.id.sp3);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Meses, android.R.layout.simple_spinner_item);
-        Meses.setAdapter(adapter);
-
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.Dias, android.R.layout.simple_spinner_item);
-        Dias.setAdapter(adapter2);
-
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.Años, android.R.layout.simple_spinner_item);
-        Años.setAdapter(adapter3);
-        */
-
-        //segunda version fecha
         mDisplayDate = (TextView) findViewById(R.id.date);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 
                 String dato = mDisplayDate.getText().toString();
 
