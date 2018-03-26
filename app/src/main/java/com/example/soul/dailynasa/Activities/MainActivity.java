@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private static final Date FECHALIMITEB = new Date(1995, 6, 16);
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-
+    private boolean botonok = false; //saber si ya se le ha dado al boton ok alguna vez
+    private int years, months, days;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +44,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Calendar cal = Calendar.getInstance();
+                int year;
+                int month;
+                int day;
 
-                //hace un get para el año, mes y dia actuales.
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+                if(botonok){//si se le ha dado al ok anteriormente hacer que se muestren los ultimos valores elegidos
+                    year = years;
+                    month = months;
+                    day = days;
+                }
+                //hace un get para el año, mes y dia actuales si todavia no se le ha dado al ok
+                else {
+                    year = cal.get(Calendar.YEAR);
+                    month = cal.get(Calendar.MONTH);
+                    day = cal.get(Calendar.DAY_OF_MONTH);
+                }
 
                 //muestra el DatePickerDialog
                 DatePickerDialog dialog = new DatePickerDialog(
@@ -67,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Log.d(TAG, "el valor de botonok1:" + botonok);
+                botonok = true; //cuando se presion en el boton ok el valor pasa a cierto
+                //guardar los valores escogidos en las variables globales para mostrarlos la proxima
+                //vez que se muestre el datepickerdialog
+                years = year;
+                months = month;
+                days = dayOfMonth;
+                Log.d(TAG, "el valor de botonok2:" + botonok);
+
                 month = month +1;
 
                 Calendar cal2 = Calendar.getInstance(); //crear otro calendario para mirar la fecha actual
@@ -75,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 //creo un objeto date con la fecha escogida para compararla con la fecha limite
                 Date fechaescogida = new Date(year, month, dayOfMonth);
 
-                //creo un objeto date con la fecha actual para compararla con la fecha esgida
+                //creo un objeto date con la fecha actual para compararla con la fecha escogida
                 Date fechalimitea = new Date(cal2.get(Calendar.YEAR), cal2.get(Calendar.MONTH)+1, cal2.get(Calendar.DAY_OF_MONTH));
 
                 //controlar que la fecha escogida no sea anterior a la FECHALIMITEB
@@ -102,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "entra en el if t2");
 
                     //indicar la restriccion con un toast
-                    Toast.makeText(getApplicationContext(),"La fecha tiene que ser anterior hoy", Toast.LENGTH_SHORT ).show();
+                    Toast.makeText(getApplicationContext(),"La fecha tiene que ser anterior a hoy", Toast.LENGTH_SHORT ).show();
                     //cambiar la fecha escogida por una valida(la maxima posible)
                     year = cal2.get(Calendar.YEAR);
                     month = cal2.get(Calendar.MONTH);
