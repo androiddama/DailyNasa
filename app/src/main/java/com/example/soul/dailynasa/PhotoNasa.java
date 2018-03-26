@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.soul.dailynasa.Network.GetPicApi;
+import com.example.soul.dailynasa.Network.NasaData;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;

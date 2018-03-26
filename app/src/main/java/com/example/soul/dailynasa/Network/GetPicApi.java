@@ -1,4 +1,4 @@
-package com.example.soul.dailynasa;
+package com.example.soul.dailynasa.Network;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

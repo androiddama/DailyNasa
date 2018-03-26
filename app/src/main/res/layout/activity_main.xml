@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.soul.dailynasa.MainActivity">
+    tools:context="com.example.soul.dailynasa.Activities.MainActivity">
 
     <ImageView
         android:id="@+id/logo_nasa"
@@ -34,7 +34,6 @@
         android:layout_centerHorizontal="true"
         android:hint="Fecha"
         android:textSize="40sp" />
-
 
 
 </RelativeLayout>

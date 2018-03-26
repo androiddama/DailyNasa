@@ -1,4 +1,4 @@
-package com.example.soul.dailynasa;
+package com.example.soul.dailynasa.Network;
 
 /**
  * Created by soul on 05/03/2018.
