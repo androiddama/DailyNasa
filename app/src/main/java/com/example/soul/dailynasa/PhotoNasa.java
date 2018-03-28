@@ -1,5 +1,6 @@
 package com.example.soul.dailynasa;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,9 +22,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.os.AsyncTask;
 
+import java.io.IOException;
+
 public class PhotoNasa extends AppCompatActivity {
 
-    private String dia = "2018-02-02";
+    private static String dia = "2018-02-02";
     private static final String key = "AG0bdbRJFcygFGWDfL6BK6Ju3PzNV8Z5ms8kzGJf";
     private ImageView im;
     private TextView text;
@@ -52,50 +55,37 @@ public class PhotoNasa extends AppCompatActivity {
 
         im = (ImageView) findViewById(R.id.nasa_image);
 
-        serviceNetwork();
-    }
-    public void serviceNetwork() {
+        new Peticion().execute();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(GetPicApi.URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        GetPicApi client = retrofit.create(GetPicApi.class);
-        Call<NasaData> call = client.crida(key, dia);
-
-        Log.d("PhotoNasa.Activity", "Abans del intent");
-        Intent intent = new Intent(PhotoNasa.this, BackgroundService.class);
-        Log.d("PhotoNasa.Activity", "Intent creat");
-        intent.putExtra("key", key);
-        intent.putExtra("day", dia);
-        Log.d("PhotoNasa.Activity", "Crido intent");
-        startService(intent);
     }
-/*  protected int doInBackground(String dia, String key) {
+
+    //TODO: https://www.youtube.com/watch?v=s99e62gnva8 mirar link. Hi ha Asynctask + Retrofit
+
+    public static class Peticion extends AsyncTask<Void,Void,String> {
+
+        @Override
+        protected String doInBackground(Void... voids) {
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(GetPicApi.URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-
             GetPicApi client = retrofit.create(GetPicApi.class);
             Call<NasaData> call = client.crida(key, dia);
 
-            call.enqueue(new Callback<NasaData>() {
-                @Override
-                public void onResponse(Call<NasaData> call, Response<NasaData> response) {
-                    NasaData repos = response.body();
-                    Picasso.with(PhotoNasa.this).load(repos.getUrl()).error(R.drawable.nasa).into(im);
-                }
+            try {
+                NasaData s = call.execute().body();
+                Log.d("PhotoNasa.Activity", s.getUrl());
+                return s.getUrl();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(String message){
+            Picasso.with(PhotoNasa.class).load(message).error(R.drawable.nasa).into(im);
+        }
+    }
 
-                @Override
-                public void onFailure(Call<NasaData> call, Throwable t) {
-                    Toast to = Toast.makeText(PhotoNasa.this, "Fail to connect to the server", Toast.LENGTH_SHORT);
-                    to.show();
-                }
-            });
-
-            return 1;
-
-        }*/
 }
