@@ -17,6 +17,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.os.AsyncTask;
+
 public class PhotoNasa extends AppCompatActivity {
 
     private String dia = "2018-02-02";
@@ -24,12 +26,14 @@ public class PhotoNasa extends AppCompatActivity {
     private ImageView im;
     private TextView text;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_nasa);
 
-        //intento de sacar la fehca seleccionada
+
+        //sacar la fehca seleccionada
         text = (TextView) findViewById(R.id.title);
 
         Intent i2 = getIntent();
@@ -43,31 +47,45 @@ public class PhotoNasa extends AppCompatActivity {
 
         }
 
-        //final del intento de sacar la fecha seleccionada
+        //final de sacar la fecha seleccionada
 
         im = (ImageView) findViewById(R.id.nasa_image);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(GetPicApi.URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        NasaAsyncTask task = new NasaAsyncTask();
+        task.execute(dia, key);
 
-        GetPicApi client = retrofit.create(GetPicApi.class);
-        Call<NasaData> call = client.crida(key, dia);
+    }
 
-        call.enqueue(new Callback<NasaData>() {
-            @Override
-            public void onResponse(Call<NasaData> call, Response<NasaData> response) {
-                NasaData repos = response.body();
-                Picasso.with(PhotoNasa.this).load(repos.getUrl()).error(R.drawable.nasa).into(im);
-            }
+    private abstract class NasaAsyncTask extends AsyncTask <String, Void, Integer> {
 
-            @Override
-            public void onFailure(Call<NasaData> call, Throwable t) {
-                Toast to = Toast.makeText(PhotoNasa.this, "Fail to connect to the server", Toast.LENGTH_SHORT);
-                to.show();
-            }
-        });
+
+        protected int doInBackground(String dia, String key) {
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(GetPicApi.URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            GetPicApi client = retrofit.create(GetPicApi.class);
+            Call<NasaData> call = client.crida(key, dia);
+
+            call.enqueue(new Callback<NasaData>() {
+                @Override
+                public void onResponse(Call<NasaData> call, Response<NasaData> response) {
+                    NasaData repos = response.body();
+                    Picasso.with(PhotoNasa.this).load(repos.getUrl()).error(R.drawable.nasa).into(im);
+                }
+
+                @Override
+                public void onFailure(Call<NasaData> call, Throwable t) {
+                    Toast to = Toast.makeText(PhotoNasa.this, "Fail to connect to the server", Toast.LENGTH_SHORT);
+                    to.show();
+                }
+            });
+
+            return 1;
+
+        }
 
 
     }
