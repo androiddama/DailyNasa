@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
-
-
             }
         });
 
@@ -128,19 +126,11 @@ public class MainActivity extends AppCompatActivity {
                     month = cal2.get(Calendar.MONTH);
                     dayOfMonth = cal2.get(Calendar.DAY_OF_MONTH);
                 }
-
-
                 Log.d(TAG, "onDateSet: mm/dd/yyyy: " + month + "/" + dayOfMonth + "/" + year);
-
                 String dates = year + "-" + month + "-" + dayOfMonth;
-
                 mDisplayDate.setText(dates);
-
             }
         };
-
-
-
     }
 
     private void addButtonListener() {
@@ -150,11 +140,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Log.d(TAG, "Llega1");
-
                 String dato = mDisplayDate.getText().toString();
-
 
                 //Intent para pasar la fecha a la activity que muestra la imagen de la NASA.
                 /*(Coje el dato del DatePickerDialog y lo envia a la nueva activity cuando se
@@ -163,9 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent("com.example.soul.dailynasa.PhotoNasa");
                 i.putExtra("FECHA", dato);
                 startActivity(i);
-
             }
         });
-
     }
 }

@@ -3,12 +3,14 @@ package com.example.soul.dailynasa;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.soul.dailynasa.Network.GetPicApi;
 import com.example.soul.dailynasa.Network.NasaData;
+import com.example.soul.dailynasa.background.BackgroundService;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -22,7 +24,7 @@ import android.os.AsyncTask;
 public class PhotoNasa extends AppCompatActivity {
 
     private String dia = "2018-02-02";
-    private String key = "DEMO_KEY";
+    private static final String key = "AG0bdbRJFcygFGWDfL6BK6Ju3PzNV8Z5ms8kzGJf";
     private ImageView im;
     private TextView text;
 
@@ -33,33 +35,43 @@ public class PhotoNasa extends AppCompatActivity {
         setContentView(R.layout.activity_photo_nasa);
 
 
-        //sacar la fehca seleccionada
+        //sacar la fecha seleccionada
         text = (TextView) findViewById(R.id.title);
 
         Intent i2 = getIntent();
         Bundle extras = i2.getExtras();
 
-        //preguntar si el extra viene vacío = buena practica
+        //preguntar si el extra viene vacío => buena practica
         if(extras != null){
-            String dato = extras.getString("FECHA");
-            text.setText(dato);
-            dia = dato;
+            String fecha = extras.getString("FECHA");
+            text.setText(fecha);
+            dia = fecha;
 
         }
-
         //final de sacar la fecha seleccionada
 
         im = (ImageView) findViewById(R.id.nasa_image);
 
-        NasaAsyncTask task = new NasaAsyncTask();
-        task.execute(dia, key);
-
+        serviceNetwork();
     }
+    public void serviceNetwork() {
 
-    private abstract class NasaAsyncTask extends AsyncTask <String, Void, Integer> {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(GetPicApi.URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetPicApi client = retrofit.create(GetPicApi.class);
+        Call<NasaData> call = client.crida(key, dia);
 
-
-        protected int doInBackground(String dia, String key) {
+        Log.d("PhotoNasa.Activity", "Abans del intent");
+        Intent intent = new Intent(PhotoNasa.this, BackgroundService.class);
+        Log.d("PhotoNasa.Activity", "Intent creat");
+        intent.putExtra("key", key);
+        intent.putExtra("day", dia);
+        Log.d("PhotoNasa.Activity", "Crido intent");
+        startService(intent);
+    }
+/*  protected int doInBackground(String dia, String key) {
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(GetPicApi.URL)
@@ -85,8 +97,5 @@ public class PhotoNasa extends AppCompatActivity {
 
             return 1;
 
-        }
-
-
-    }
+        }*/
 }
