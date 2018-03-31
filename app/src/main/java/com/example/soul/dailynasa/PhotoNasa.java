@@ -1,6 +1,7 @@
 package com.example.soul.dailynasa;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,17 +56,21 @@ public class PhotoNasa extends AppCompatActivity {
 
         im = (ImageView) findViewById(R.id.nasa_image);
 
-        new Peticion().execute();
+        new Peticion(this).execute();
 
     }
 
     //TODO: https://www.youtube.com/watch?v=s99e62gnva8 mirar link. Hi ha Asynctask + Retrofit
 
-    public static class Peticion extends AsyncTask<Void,Void,String> {
+    private class Peticion extends AsyncTask<Void,Void,String> {
+
+        private Context contex;
+        public Peticion(Context context) {
+            contex = context;
+        }
 
         @Override
         protected String doInBackground(Void... voids) {
-
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(GetPicApi.URL)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -82,9 +87,10 @@ public class PhotoNasa extends AppCompatActivity {
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(String message){
-            Picasso.with(PhotoNasa.class).load(message).error(R.drawable.nasa).into(im);
+            Picasso.with(contex).load(message).error(R.drawable.nasa).into(im);
         }
     }
 
