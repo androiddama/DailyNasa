@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.soul.dailynasa.Network.GetPicApi;
 import com.example.soul.dailynasa.Network.NasaData;
-import com.example.soul.dailynasa.background.BackgroundService;
+import com.ndori.rxloading.RxLoading;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -29,8 +29,7 @@ public class PhotoNasa extends AppCompatActivity {
 
     private static String dia = "2018-02-02";
     private static final String key = "AG0bdbRJFcygFGWDfL6BK6Ju3PzNV8Z5ms8kzGJf";
-    private ImageView im;
-    private TextView text;
+    private ImageView im_apod;
 
 
     @Override
@@ -40,7 +39,7 @@ public class PhotoNasa extends AppCompatActivity {
 
 
         //sacar la fecha seleccionada
-        text = (TextView) findViewById(R.id.title);
+        TextView date = findViewById(R.id.title);
 
         Intent i2 = getIntent();
         Bundle extras = i2.getExtras();
@@ -48,13 +47,14 @@ public class PhotoNasa extends AppCompatActivity {
         //preguntar si el extra viene vacío => buena practica
         if(extras != null){
             String fecha = extras.getString("FECHA");
-            text.setText(fecha);
+            String aux = date.getText() + fecha;
+            date.setText(aux);
             dia = fecha;
 
         }
         //final de sacar la fecha seleccionada
 
-        im = (ImageView) findViewById(R.id.nasa_image);
+        im_apod = findViewById(R.id.nasa_image);
 
         new Peticion(this).execute();
 
@@ -89,8 +89,14 @@ public class PhotoNasa extends AppCompatActivity {
         }
 
         @Override
+        protected void onProgressUpdate(Void... values){
+            //TODO: Implementar el loading. mira a: https://android-arsenal.com/details/1/6802
+            networkCall().compose(RxLoading.<>create(loadingLayout)).subscribe(...);
+        }
+
+        @Override
         protected void onPostExecute(String message){
-            Picasso.with(contex).load(message).error(R.drawable.nasa).into(im);
+            Picasso.with(contex).load(message).error(R.drawable.nasa).into(im_apod);
         }
     }
 
