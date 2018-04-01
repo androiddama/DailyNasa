@@ -2,4 +2,5 @@
     <string name="app_name">DailyNasa</string>
     <string name="veureimatge">VEURE IMATGE</string>
     <string name="imatgedeldia">IMATGE DEL DIA</string>
+    <string name="loading">Loading ...</string>
 </resources>

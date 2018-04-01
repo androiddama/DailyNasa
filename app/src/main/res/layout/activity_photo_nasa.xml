@@ -16,24 +16,22 @@
         android:textColor="@android:color/black"
         android:paddingLeft="16dp"/>
 
-    <com.ndori.loading.LoadingLayout
-        android:id="@+id/loadingLayout"
+    <TextView
+        android:id="@+id/loading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/loading"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <ImageView
+        android:id="@+id/nasa_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="center"
+        android:visibility="gone"/>
 
-            <ImageView
-                android:id="@+id/nasa_image"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:scaleType="center"/>
-
-        </LinearLayout>
-
-    </com.ndori.loading.LoadingLayout>
 </LinearLayout>
