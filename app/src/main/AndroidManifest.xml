@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PhotoNasa">
+        <activity android:name=".PhotoNasa"
+            android:parentActivityName=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="com.example.soul.dailynasa.PhotoNasa" />
 

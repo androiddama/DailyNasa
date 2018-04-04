@@ -62,6 +62,7 @@ public class PhotoNasa extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(7);
         progressBar.setProgress(0);
+        progressBar.setVisibility(View.VISIBLE);
         new Peticion(this).execute();
     }
 
@@ -76,21 +77,16 @@ public class PhotoNasa extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... voids) {
-            publishProgress(counter++);
+            publishProgress(counter);
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(GetPicApi.URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-            publishProgress(counter++);
             GetPicApi client = retrofit.create(GetPicApi.class);
-            publishProgress(counter++);
             Call<NasaData> call = client.crida(key, dia);
-            publishProgress(counter++);
             try {
-                publishProgress(counter++);
                 NasaData s = call.execute().body();
                 Log.d("PhotoNasa.Activity", s.getUrl());
-                publishProgress(counter++);
                 return s.getUrl();
             } catch (IOException e) {
                 e.printStackTrace();

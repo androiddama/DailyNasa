@@ -6,14 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.soul.dailynasa.Activities.MainActivity">
 
-    <ImageView
-        android:id="@+id/logo_nasa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/nasa"/>
-
+    <com.jgabrielfreitas.core.BlurImageView
+        android:id="@+id/myBlurImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/backgrount_rocket"/>
 
     <Button
         android:id="@+id/button"
@@ -22,18 +20,19 @@
         android:text="@string/veureimatge"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"/>
-
-
+        android:layout_marginBottom="70dp"/>
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/logo_nasa"
+        android:layout_above="@id/button"
         android:layout_centerHorizontal="true"
-        android:hint="Fecha"
-        android:textSize="40sp" />
+        android:text="Fecha"
+        android:textSize="50sp"
+        android:textColor="@android:color/white"
+        android:textAllCaps="true"/>
+
 
 
 </RelativeLayout>

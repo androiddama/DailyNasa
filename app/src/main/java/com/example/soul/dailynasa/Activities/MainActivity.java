@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.soul.dailynasa.R;
+import com.jgabrielfreitas.core.BlurImageView;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private boolean botonok = false; //saber si ya se le ha dado al boton ok alguna vez
     private int years, months, days;
+    BlurImageView myBlurImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         addButtonListener();
 
         mDisplayDate = (TextView) findViewById(R.id.date);
+        myBlurImage = (BlurImageView) findViewById(R.id.myBlurImage);
+        myBlurImage.setBlur(2);
 
         //función para mostrar el DatePickDialog si se presiona el botón: 'Fecha'.
         //(o bien si se presiona una fecha ya escogida y que se muestra en lugar del botón 'Fecha').

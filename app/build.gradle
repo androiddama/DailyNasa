@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.soul.dailynasa"
-        minSdkVersion 15
+        minSdkVersion 20
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -32,7 +32,6 @@ dependencies {
     //llibreria Picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
 
-    //loading
-    //compile 'com.ndori.rxloading:rxloading:0.9'
+    compile 'com.github.jgabrielfreitas:BlurImageView:1.0.1'
 
 }
