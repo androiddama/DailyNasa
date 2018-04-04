@@ -3,6 +3,7 @@ package com.example.soul.dailynasa;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,13 +29,13 @@ import java.io.IOException;
 
 public class PhotoNasa extends AppCompatActivity {
 
+    private static final String TAG = "PhotoNasa.Activity";
     private static String dia;
     private static final String key = "AG0bdbRJFcygFGWDfL6BK6Ju3PzNV8Z5ms8kzGJf";
     private ImageView im_apod;
     private TextView load;
     private ProgressBar progressBar;
     Integer counter = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class PhotoNasa extends AppCompatActivity {
 
     //TODO: https://www.youtube.com/watch?v=s99e62gnva8 mirar link. Hi ha Asynctask + Retrofit
 
-    private class Peticion extends AsyncTask<Void,Integer,String> {
+    private class Peticion extends AsyncTask<Void,Integer,String[]> {
 
         private Context contex;
         public Peticion(Context context) {
@@ -76,7 +77,7 @@ public class PhotoNasa extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(Void... voids) {
+        protected String[] doInBackground(Void... voids) {
             publishProgress(counter);
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(GetPicApi.URL)
@@ -87,7 +88,12 @@ public class PhotoNasa extends AppCompatActivity {
             try {
                 NasaData s = call.execute().body();
                 Log.d("PhotoNasa.Activity", s.getUrl());
-                return s.getUrl();
+                String[] result = new String[4];
+                result[0] = s.getTitle();
+                result[1] = s.getExplanation();
+                result[2] = s.getMedia_type();
+                result[3] = s.getUrl();
+                return result;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -103,11 +109,28 @@ public class PhotoNasa extends AppCompatActivity {
 
 
         @Override
-        protected void onPostExecute(String message){
-            progressBar.setVisibility(View.GONE);
-            Picasso.with(contex).load(message).error(R.drawable.nasa).into(im_apod);
-            load.setVisibility(View.GONE);
+        protected void onPostExecute(String[] message){
+            Log.d(TAG, "onPostExecute entrant");
+            switch(message[2]) {
+                case "image":
+                    Log.d(TAG, "onPostExecute es una imatge");
+                    progressBar.setVisibility(View.GONE);
+                    Picasso.with(contex).load(message[3]).error(R.drawable.nasa).into(im_apod);
+                    load.setVisibility(View.GONE);
+                    break;
+                case "video":
+                    Log.d(TAG, "onPostExecute es un video");
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    String aux = "https://" + message[3];
+                    Log.d(TAG, aux);
+                    i.setData(Uri.parse(aux));
+                    startActivity(i);
+                    break;
+                default:
+                    Toast t = Toast.makeText(contex, "Not really working", Toast.LENGTH_LONG);
+                    t.show();
+                    break;
+            }
         }
     }
-
 }

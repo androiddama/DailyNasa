@@ -5,11 +5,24 @@ package com.example.soul.dailynasa.Network;
  */
 
 public class NasaData {
-    private String url; //ERA ESTO LO QUE SE TENIA QUE LLAMAR IGUAL QUE EL OBJETO JSON??
+    private String explanation;
+    private String media_type;
+    private String title;
+    private String url;
+
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public String getMedia_type() {
+        return media_type;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 
     public String getUrl() {
         return url;
     }
-
-    public void setUrl(String url)  {this.url = url;} //CREO QUE ESTA LINEA NO SE UTILIZABA
 }
