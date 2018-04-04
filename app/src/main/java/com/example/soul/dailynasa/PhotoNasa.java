@@ -119,6 +119,7 @@ public class PhotoNasa extends AppCompatActivity {
                     load.setVisibility(View.GONE);
                     break;
                 case "video":
+ //TODO: que no salti a youtube directament. Que aparegui el titol i la explicacio(estan al string message) i un boto per quan l'ususari vulgui saltar
                     Log.d(TAG, "onPostExecute es un video");
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     String aux = "https://" + message[3];
