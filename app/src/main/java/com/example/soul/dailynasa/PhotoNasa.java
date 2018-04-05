@@ -58,6 +58,11 @@ public class PhotoNasa extends AppCompatActivity {
         }
 
         //final de sacar la fecha seleccionada
+
+        //introducir la fecha en el 'titulo' de la activity
+        String titulo2 = "Imatge del dia " + dia;
+        this.setTitle(titulo2);
+
         im_apod = findViewById(R.id.nasa_image);
         load = findViewById(R.id.loading);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -79,10 +84,12 @@ public class PhotoNasa extends AppCompatActivity {
         @Override
         protected String[] doInBackground(Void... voids) {
             publishProgress(counter);
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(GetPicApi.URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
+
             GetPicApi client = retrofit.create(GetPicApi.class);
             Call<NasaData> call = client.crida(key, dia);
             try {
@@ -119,7 +126,7 @@ public class PhotoNasa extends AppCompatActivity {
                     load.setVisibility(View.GONE);
                     break;
                 case "video":
- //TODO: que no salti a youtube directament. Que aparegui el titol i la explicacio(estan al string message) i un boto per quan l'ususari vulgui saltar
+   //TODO: que no salti a youtube directament. Que aparegui el titol i la explicacio(estan al string message) i un boto per quan l'ususari vulgui saltar
                     Log.d(TAG, "onPostExecute es un video");
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     String aux = "https://" + message[3];
@@ -132,6 +139,10 @@ public class PhotoNasa extends AppCompatActivity {
                     t.show();
                     break;
             }
+        //TODO: mostrar la explicacion de la imagen
+        //TODO: mostrar el titulo de la imagen
+
+
         }
     }
 }

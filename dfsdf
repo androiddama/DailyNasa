@@ -1,0 +1,108 @@
+[33mcommit 60c0524cba6767990a8ab3af95fc845c2567af36[m
+Author: Mireia Cano <37373077+Mikcp@users.noreply.github.com>
+Date:   Wed Apr 4 18:39:48 2018 +0200
+
+    Update PhotoNasa.java
+
+[33mcommit db7cebbae24d78d036a32776564ae2c834895094[m
+Author: Mikcp <canomire@gmail.com>
+Date:   Wed Apr 4 18:34:25 2018 +0200
+
+    respon diferent segons tinguem un video o una foto
+
+[33mcommit 7ba8ab017f9d92e12dfc108ac4dc7b0270f81f86[m
+Author: Mikcp <canomire@gmail.com>
+Date:   Wed Apr 4 17:33:02 2018 +0200
+
+    loading acabat + pantalla introduccio de dades updated
+
+[33mcommit addb2424a53f8fb12a2a9b6491c323a49236cb89[m
+Author: Mikcp <canomire@gmail.com>
+Date:   Wed Apr 4 15:32:21 2018 +0200
+
+    Apareix la ProgressBar
+
+[33mcommit 6eca6a72bb8afac90dcc6189aee984862581a380[m
+Author: Mikcp <canomire@gmail.com>
+Date:   Sun Apr 1 23:49:47 2018 +0200
+
+    Intent de loading cutre amb TextView
+
+[33mcommit ee7dbd37df60c68fd37c0e8b8ca34826d03b3c03[m
+Author: Mikcp <canomire@gmail.com>
+Date:   Sat Mar 31 17:27:39 2018 +0200
+
+    Intent de loading
+
+[33mcommit 0d6e81e78d083bf71a11a24e5beff5f90d0c0ca2[m
+Author: Mikcp <canomire@gmail.com>
+Date:   Sat Mar 31 16:35:52 2018 +0200
+
+    Foto es carrega en background
+
+[33mcommit 86ad830154d69cfa9fb783c2062fa6b03746ffce[m
+Author: Mikcp <canomire@gmail.com>
+Date:   Wed Mar 28 21:04:37 2018 +0200
+
+    AsyncTask + Retrofit. Falla el retorn
+
+[33mcommit b068d0b295d682c6c03e13b6901892970a1c2e08[m
+Author: Mikcp <canomire@gmail.com>
+Date:   Wed Mar 28 20:36:58 2018 +0200
+
+    Intent background amb BackgroundService. Not working
+
+[33mcommit d860803a468701b1278fd1c0ff5488f130b41f58[m
+Author: Paula Boyano <paulabivars@hotmail.com>
+Date:   Wed Mar 28 15:07:55 2018 +0200
+
+    Primera intencion de anadir AsyncTask (en PhotoNasa.java)
+
+[33mcommit b2d6160e568b8d4cb49fa29ebdc6361eeb869aa9[m
+Author: Paula Boyano <paulabivars@hotmail.com>
+Date:   Mon Mar 26 21:25:54 2018 +0200
+
+    Cambiar el texto directo en los layouts redireccionandolo al archivo values/strings.xml
+
+[33mcommit 0b6890ddaf156f1ba19d6a771df8896679e589eb[m
+Author: Paula Boyano <paulabivars@hotmail.com>
+Date:   Mon Mar 26 21:10:22 2018 +0200
+
+    Fijar la fecha en el DatePicker Dialog, tanto al volver de la segunda activity como al volver a seleccionar una nueva fecha. Se muestra desde la ultima fecha escogida en vez de retornar a la fecha de hoy
+
+[33mcommit 9753e70907add64ffb30a347803278d0a7a1fc5d[m
+Author: Paula Boyano <paulabivars@hotmail.com>
+Date:   Mon Mar 26 20:38:11 2018 +0200
+
+    1)Organizacion en las clases java: Carpetas: Activities(MainActivity), Network(GetPicApi, NasaData), PhotoNasa. 2) Fechas: Crear objetos date para una buena comparacion de fechas y informar de las restricciones al usuario mediante toasts.
+
+[33mcommit 7675148738200d4367f3803aabda775e2724b750[m
+Merge: be016ef 0b55288
+Author: Mikcp <canomire@gmail.com>
+Date:   Tue Mar 20 23:05:19 2018 +0100
+
+    Any a la baixa arreglat
+
+[33mcommit be016ef9a1dbaf27fc267a0b31b305e8fbf95da8[m
+Author: Mikcp <canomire@gmail.com>
+Date:   Tue Mar 20 20:27:25 2018 +0100
+
+    Actualitzacions DatePicker
+
+[33mcommit 0b55288036fc38bb521584d18e2b9fc4bb9ea4e0[m
+Author: Paula <paulabivars@hotmail.com>
+Date:   Tue Mar 20 14:39:02 2018 +0100
+
+    Años posibles para seleccionar ajustados. Comentarios sobre DatePickerDialog.
+
+[33mcommit 133c5257a0251adc1cb973c595919058978909aa[m
+Author: Mikcp <canomire@gmail.com>
+Date:   Mon Mar 19 18:12:57 2018 +0100
+
+    Neteja spinners
+
+[33mcommit 8a61cdf1b659073024a19f500c983839c975be17[m
+Author: Paula <paulabivars@hotmail.com>
+Date:   Mon Mar 19 13:58:42 2018 +0100
+
+    Commit Inicial
