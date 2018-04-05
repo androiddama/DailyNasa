@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import android.os.AsyncTask;
 
 import java.io.IOException;
 
+import static android.net.Uri.*;
+
 public class PhotoNasa extends AppCompatActivity {
 
     private static final String TAG = "PhotoNasa.Activity";
@@ -39,10 +43,17 @@ public class PhotoNasa extends AppCompatActivity {
     TextView title;
     TextView explanation;
 
+    Button botonyoutube;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_nasa);
+
+
+        botonyoutube = (Button) findViewById(R.id.botonyoutube);
+        //para hacerlo invisible si el resultado es una imagen y visible si es un video
+        botonyoutube.setVisibility(View.INVISIBLE);
 
         title = findViewById(R.id.title);
         explanation = findViewById(R.id.explanation);
@@ -119,6 +130,8 @@ public class PhotoNasa extends AppCompatActivity {
             title.setText(message[0]);
             explanation.setText(message[1]);
 
+
+
             switch(message[2]) {
                 case "image":
                     Log.d(TAG, "onPostExecute es una imatge");
@@ -126,30 +139,35 @@ public class PhotoNasa extends AppCompatActivity {
                     Picasso.with(contex).load(message[3]).error(R.drawable.nasa).into(im_apod);
                     load.setVisibility(View.GONE);
                     break;
+
                 case "video":
-<<<<<<< HEAD
-   //TODO: que no salti a youtube directament. Que aparegui el titol i la explicacio(estan al string message) i un boto per quan l'ususari vulgui saltar
-=======
 
- //TODO: que no salti a youtube directament. Que aparegui el titol i la explicacio(estan al string message) i un boto per quan l'ususari vulgui saltar
-
->>>>>>> origin/master
                     Log.d(TAG, "onPostExecute es un video");
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    String aux = "https://" + message[3];
+
+                    progressBar.setVisibility(View.GONE);
+                    load.setVisibility(View.INVISIBLE);
+                    botonyoutube.setVisibility(View.VISIBLE);
+
+                    final String aux = "https://" + message[3];
                     Log.d(TAG, aux);
-                    i.setData(Uri.parse(aux));
-                    startActivity(i);
-                    break;
+
+
+                    botonyoutube.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Uri uri = parse(aux);
+                            Intent intent3 = new Intent(Intent.ACTION_VIEW, uri);
+
+                            startActivity(intent3);
+                        }
+                    });
+
+
                 default:
                     Toast t = Toast.makeText(contex, "Not really working", Toast.LENGTH_LONG);
                     t.show();
                     break;
             }
-        //TODO: mostrar la explicacion de la imagen
-        //TODO: mostrar el titulo de la imagen
-
-
         }
     }
 }

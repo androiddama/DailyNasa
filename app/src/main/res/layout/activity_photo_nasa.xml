@@ -26,6 +26,13 @@
         android:textColor="@android:color/black"
         android:gravity="center"/>
 
+    <Button
+        android:id="@+id/botonyoutube"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IR A YOUTUBE"
+        android:layout_gravity="center_horizontal"/>
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
@@ -53,6 +60,8 @@
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
     </ScrollView>
+
+
 
 
 </LinearLayout>
