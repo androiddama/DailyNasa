@@ -36,14 +36,16 @@ public class PhotoNasa extends AppCompatActivity {
     private TextView load;
     private ProgressBar progressBar;
     Integer counter = 1;
-    TextView date;
+    TextView title;
+    TextView explanation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_nasa);
 
-        date = findViewById(R.id.title);
+        title = findViewById(R.id.title);
+        explanation = findViewById(R.id.explanation);
         //sacar la fecha seleccionada
 
 
@@ -53,8 +55,6 @@ public class PhotoNasa extends AppCompatActivity {
         //preguntar si el extra viene vacío => buena practica
         if(extras != null){
             String fecha = extras.getString("FECHA");
-            //String aux = date.getText() + " " + fecha;
-            //date.setText(aux);
             dia = fecha;
         }
 
@@ -120,7 +120,8 @@ public class PhotoNasa extends AppCompatActivity {
         protected void onPostExecute(String[] message){
             Log.d(TAG, "onPostExecute entrant");
 
-            date.setText(message[0]);
+            title.setText(message[0]);
+            explanation.setText(message[1]);
 
             switch(message[2]) {
                 case "image":
