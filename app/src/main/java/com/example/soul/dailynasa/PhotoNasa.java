@@ -73,8 +73,6 @@ public class PhotoNasa extends AppCompatActivity {
         new Peticion(this).execute();
     }
 
-    //TODO: https://www.youtube.com/watch?v=s99e62gnva8 mirar link. Hi ha Asynctask + Retrofit
-
     private class Peticion extends AsyncTask<Void,Integer,String[]> {
 
         private Context contex;
@@ -110,8 +108,6 @@ public class PhotoNasa extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(Integer... values){
-            //TODO: Implementar el loading. mira a: https://android-arsenal.com/details/1/6802
-            //networkCall().compose(RxLoading.<>create(loadingLayout)).subscribe(...);
             progressBar.setProgress(values[0]);
         }
 
@@ -131,7 +127,13 @@ public class PhotoNasa extends AppCompatActivity {
                     load.setVisibility(View.GONE);
                     break;
                 case "video":
+<<<<<<< HEAD
    //TODO: que no salti a youtube directament. Que aparegui el titol i la explicacio(estan al string message) i un boto per quan l'ususari vulgui saltar
+=======
+
+ //TODO: que no salti a youtube directament. Que aparegui el titol i la explicacio(estan al string message) i un boto per quan l'ususari vulgui saltar
+
+>>>>>>> origin/master
                     Log.d(TAG, "onPostExecute es un video");
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     String aux = "https://" + message[3];

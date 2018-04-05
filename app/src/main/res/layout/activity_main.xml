@@ -13,26 +13,32 @@
         android:scaleType="fitXY"
         android:src="@drawable/backgrount_rocket"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/veureimatge"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="70dp"/>
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/button"
-        android:layout_centerHorizontal="true"
-        android:text="Fecha"
-        android:textSize="50sp"
-        android:textColor="@android:color/white"
-        android:textAllCaps="true"/>
+        <TextView
+            android:id="@+id/date"
+            android:background="@drawable/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:padding="4dp"
+            android:layout_margin="16dp"
+            android:text="Fecha"
+            android:textSize="50sp"
+            android:textColor="@android:color/white"/>
 
-
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/veureimatge"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="70dp"/>
+    </LinearLayout>
 
 </RelativeLayout>
