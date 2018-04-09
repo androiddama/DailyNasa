@@ -5,17 +5,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.soul.dailynasa.PhotoNasa">
+    tools:context="com.example.soul.dailynasa.PhotoNasa"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/imatgedeldia"
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
+        android:textSize="35sp"
+        android:textColor="@color/DimGray"
         android:padding="16dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        />
 
     <TextView
         android:id="@+id/loading"
@@ -23,14 +25,14 @@
         android:layout_height="wrap_content"
         android:text="@string/loading"
         android:textSize="24sp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/DimGray"
         android:gravity="center"/>
 
     <Button
         android:id="@+id/botonyoutube"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="IR A YOUTUBE"
+        android:text="@string/youtube"
         android:layout_gravity="center_horizontal"/>
 
     <ProgressBar
@@ -41,24 +43,32 @@
         android:visibility="gone"
         android:layout_gravity="center_horizontal"/>
 
-    <ImageView
-        android:id="@+id/nasa_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="center"
-        android:layout_gravity="center_horizontal"
-        />
+
+        <ImageView
+            android:id="@+id/nasa_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/imatgedeldia"
+            android:scaleType="center"
+
+            />
+
+
+
+
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
             <TextView
                 android:id="@+id/explanation"
                 android:layout_width="match_parent"
-                android:layout_height="318dp"
+                android:layout_height="0dp"
                 android:gravity="center"
                 android:padding="16dp"
-                android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textColor="@color/DimGray"
+                android:textSize="24sp"
+                />
     </ScrollView>
 
 
