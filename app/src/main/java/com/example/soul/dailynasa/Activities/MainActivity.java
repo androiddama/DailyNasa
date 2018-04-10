@@ -137,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+    /**
+     * crida la activity PhotoNasa
+     */
     private void addButtonListener() {
 
         btn = (Button) findViewById(R.id.button);

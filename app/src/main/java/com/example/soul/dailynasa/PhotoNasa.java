@@ -12,11 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RemoteViews;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.soul.dailynasa.Network.GetPicApi;
 import com.example.soul.dailynasa.Network.NasaData;
+import com.example.soul.dailynasa.R;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -42,6 +44,7 @@ public class PhotoNasa extends AppCompatActivity {
     Integer counter = 1;
     TextView title;
     TextView explanation;
+    ScrollView scroll;
 
     Button botonyoutube;
 
@@ -51,9 +54,10 @@ public class PhotoNasa extends AppCompatActivity {
         setContentView(R.layout.activity_photo_nasa);
 
 
+        scroll = (ScrollView) findViewById(R.id.scroll);
         botonyoutube = (Button) findViewById(R.id.botonyoutube);
         //para hacerlo invisible si el resultado es una imagen y visible si es un video
-        botonyoutube.setVisibility(View.INVISIBLE);
+        botonyoutube.setVisibility(View.GONE);
 
         title = findViewById(R.id.title);
         explanation = findViewById(R.id.explanation);
@@ -91,6 +95,12 @@ public class PhotoNasa extends AppCompatActivity {
             contex = context;
         }
 
+
+        /**
+         * Fem la crida amb Retrofit a la API i inicialitzem el progress bar
+         * @param voids
+         * @return
+         */
         @Override
         protected String[] doInBackground(Void... voids) {
             publishProgress(counter);
@@ -117,12 +127,21 @@ public class PhotoNasa extends AppCompatActivity {
             return null;
         }
 
+        /**
+         * per imprimir el progress bar mentre s'executa la tasca en background
+         * @param values
+         */
         @Override
         protected void onProgressUpdate(Integer... values){
             progressBar.setProgress(values[0]);
         }
 
 
+        /**
+         * Un cop tenim la url de la imatge o video, mirem que es i actuem (mostrant si es imatge, i obrint youtube si no)
+         *
+         * @param message
+         */
         @Override
         protected void onPostExecute(String[] message){
             Log.d(TAG, "onPostExecute entrant");
@@ -136,8 +155,9 @@ public class PhotoNasa extends AppCompatActivity {
                 case "image":
                     Log.d(TAG, "onPostExecute es una imatge");
                     progressBar.setVisibility(View.GONE);
-                    Picasso.with(contex).load(message[3]).error(R.drawable.nasa).into(im_apod);
                     load.setVisibility(View.GONE);
+                    scroll.setVisibility(View.VISIBLE);
+                    Picasso.with(contex).load(message[3]).error(R.drawable.nasa).into(im_apod);
                     break;
 
                 case "video":
@@ -145,11 +165,26 @@ public class PhotoNasa extends AppCompatActivity {
                     Log.d(TAG, "onPostExecute es un video");
 
                     progressBar.setVisibility(View.GONE);
-                    load.setVisibility(View.INVISIBLE);
+                    load.setVisibility(View.GONE);
+                    scroll.setVisibility(View.VISIBLE);
                     botonyoutube.setVisibility(View.VISIBLE);
 
-                    final String aux = "https://" + message[3];
-                    Log.d(TAG, aux);
+                    final String aux;
+
+                    String comprovacio = message[3].substring(0,4);
+
+                    Log.d(TAG, "***"+comprovacio+"***");
+
+                    if(comprovacio.equals("http")) {
+                        Log.d(TAG, "diu que te el http ja");
+                        aux = message[3];
+                        Log.wtf(TAG, aux);
+                    }
+                    else{
+                        Log.d(TAG, "no te http, l'afegeixo");
+                        aux = "https://" + message[3];
+                        Log.wtf(TAG, aux);
+                    }
 
 
                     botonyoutube.setOnClickListener(new View.OnClickListener() {
@@ -161,12 +196,6 @@ public class PhotoNasa extends AppCompatActivity {
                             startActivity(intent3);
                         }
                     });
-
-
-                default:
-                    Toast t = Toast.makeText(contex, "Not really working", Toast.LENGTH_LONG);
-                    t.show();
-                    break;
             }
         }
     }
