@@ -3,6 +3,7 @@ package com.example.soul.dailynasa;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class PhotoNasa extends AppCompatActivity {
     private ImageView im_apod;
     private TextView load;
     private ProgressBar progressBar;
+    private Typeface roboto;
     Integer counter = 1;
     TextView title;
     TextView explanation;
@@ -53,6 +55,9 @@ public class PhotoNasa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_nasa);
 
+        //declarar fuentes
+        String fuenteRobo = "fuentes/Roboto-BoldCondensedItalic.ttf";
+        this.roboto = Typeface.createFromAsset(getAssets(), fuenteRobo);
 
         scroll = (ScrollView) findViewById(R.id.scroll);
         botonyoutube = (Button) findViewById(R.id.botonyoutube);
@@ -60,6 +65,8 @@ public class PhotoNasa extends AppCompatActivity {
         botonyoutube.setVisibility(View.GONE);
 
         title = findViewById(R.id.title);
+        title.setTypeface(roboto);
+
         explanation = findViewById(R.id.explanation);
         //sacar la fecha seleccionada
 
