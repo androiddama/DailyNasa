@@ -16,22 +16,17 @@ import android.widget.RemoteViews;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.soul.dailynasa.Network.GetPicApi;
 import com.example.soul.dailynasa.Network.NasaData;
 import com.example.soul.dailynasa.R;
 import com.squareup.picasso.Picasso;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 import android.os.AsyncTask;
-
 import java.io.IOException;
-
 import static android.net.Uri.*;
 
 public class PhotoNasa extends AppCompatActivity {
@@ -46,7 +41,6 @@ public class PhotoNasa extends AppCompatActivity {
     Integer counter = 1;
     TextView title;
     TextView explanation;
-    ScrollView scroll;
 
     Button botonyoutube;
 
@@ -58,8 +52,6 @@ public class PhotoNasa extends AppCompatActivity {
         //declarar fuentes
         String fuenteRobo = "fuentes/Roboto-BoldCondensedItalic.ttf";
         this.roboto = Typeface.createFromAsset(getAssets(), fuenteRobo);
-
-        scroll = (ScrollView) findViewById(R.id.scroll);
         botonyoutube = (Button) findViewById(R.id.botonyoutube);
         //para hacerlo invisible si el resultado es una imagen y visible si es un video
         botonyoutube.setVisibility(View.GONE);
@@ -76,8 +68,7 @@ public class PhotoNasa extends AppCompatActivity {
 
         //preguntar si el extra viene vacío => buena practica
         if(extras != null){
-            String fecha = extras.getString("FECHA");
-            dia = fecha;
+            dia = extras.getString("FECHA");
         }
 
         //final de sacar la fecha seleccionada
@@ -163,7 +154,7 @@ public class PhotoNasa extends AppCompatActivity {
                     Log.d(TAG, "onPostExecute es una imatge");
                     progressBar.setVisibility(View.GONE);
                     load.setVisibility(View.GONE);
-                    scroll.setVisibility(View.VISIBLE);
+                    explanation.setVisibility(View.VISIBLE);
                     Picasso.with(contex).load(message[3]).error(R.drawable.nasa).into(im_apod);
                     break;
 
@@ -173,14 +164,14 @@ public class PhotoNasa extends AppCompatActivity {
 
                     progressBar.setVisibility(View.GONE);
                     load.setVisibility(View.GONE);
-                    scroll.setVisibility(View.VISIBLE);
+                    explanation.setVisibility(View.VISIBLE);
                     botonyoutube.setVisibility(View.VISIBLE);
 
                     final String aux;
 
                     String comprovacio = message[3].substring(0,4);
 
-                    Log.d(TAG, "***"+comprovacio+"***");
+                    Log.d(TAG, "***" + comprovacio + "***");
 
                     if(comprovacio.equals("http")) {
                         Log.d(TAG, "diu que te el http ja");
