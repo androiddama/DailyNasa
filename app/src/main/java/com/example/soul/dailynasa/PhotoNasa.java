@@ -152,10 +152,11 @@ public class PhotoNasa extends AppCompatActivity {
             switch(message[2]) {
                 case "image":
                     Log.d(TAG, "onPostExecute es una imatge");
+                    Picasso.with(contex).load(message[3]).error(R.drawable.nasa).into(im_apod);
                     progressBar.setVisibility(View.GONE);
                     load.setVisibility(View.GONE);
                     explanation.setVisibility(View.VISIBLE);
-                    Picasso.with(contex).load(message[3]).error(R.drawable.nasa).into(im_apod);
+
                     break;
 
                 case "video":
